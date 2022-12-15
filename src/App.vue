@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import TheContainer from "/src/components/layout/TheContainer.vue";
+import TheContainer from "./components/TheContainer.vue";
 
 export default {
   name: "App",
@@ -13,4 +13,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+@import url(./css/main.css);
+</style>

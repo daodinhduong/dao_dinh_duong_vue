@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="header-left">
-      <div class="header-title">Cán bộ, giáo viên</div>
+      <div class="header-title">{{ title }}</div>
       <div class="header-info"></div>
     </div>
     <div class="header-right">
@@ -16,6 +16,12 @@
 <script>
 export default {
   name: "TheHeader",
+  props: {
+    title: {
+      type: String,
+      default: "abc",
+    },
+  },
 };
 </script>
 

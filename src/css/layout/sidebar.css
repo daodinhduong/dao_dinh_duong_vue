@@ -39,3 +39,22 @@
 .sidebar-title {
   margin-left: 8px;
 }
+.img1 {
+  background-image: url(../../assets/Icons/ic_IconThietBi.svg);
+}
+.img2 {
+  background-image: url(../../assets/Icons/ic_TongQuan.svg);
+}
+.img3 {
+  background-image: url(../../assets/Icons/ic_ThietBi.svg);
+}
+.img4 {
+  background-image: url(../../assets/Icons/ic_MuonTra.svg);
+}
+
+.img5 {
+  background-image: url(../../assets/Icons/ic_BaoCao.svg);
+}
+.img6 {
+  background-image: url(../../assets/Icons/ic_HeThong.svg);
+}
