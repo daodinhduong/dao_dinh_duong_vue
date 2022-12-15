@@ -5,19 +5,16 @@
 }
 .button {
   height: 32px;
-  /* min-width: 96px; */
   font-size: 13px;
   color: #4d4f5c;
   border: unset;
   border-radius: 4px;
   background-color: #fff;
   border: 1px solid #b8b8be;
+  cursor: pointer;
 }
-.button-default {
+.button-green {
   background-color: #03ae66;
   color: #fff;
   border: unset;
-}
-.cursor-pointer:hover {
-  cursor: pointer;
 }

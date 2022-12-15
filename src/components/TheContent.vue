@@ -7,37 +7,21 @@
           <i class="content-header-search-icon icon"></i>
         </form>
         <div class="content-header-right">
-          <button
-            class="content-header-add button button-default cursor-pointer"
-          >
-            Thêm
-          </button>
-          <button class="content-header-export button cursor-pointer">
-            Xuất khẩu
-          </button>
-          <button class="content-header-more button"></button>
+          <TheButton
+            class="content-header-add button-green"
+            :buttonName="'Thêm'"
+            @click="showDialog"
+          ></TheButton>
+
+          <TheButton
+            class="content-header-export"
+            :buttonName="'Xuất khẩu'"
+          ></TheButton>
+          <TheButton class="content-header-more"></TheButton>
         </div>
       </div>
       <div class="content-body">
-        <div class="table-container">
-          <table border="1px solid #d5d8e6" id="tb-employee-list">
-            <thead>
-              <tr class="table-header">
-                <td class="text-align-center"><input type="checkbox" /></td>
-                <td class="text-align-center">Số hiệu cán bộ</td>
-                <td class="text-align-left">Họ và tên</td>
-                <td class="text-align-center">Số điện thoại</td>
-                <td>Tổ chuyên môn</td>
-                <td>QL theo môn</td>
-                <td>QL kho, phòng</td>
-                <td class="text-align-center">Đào tạo QLTB</td>
-                <td class="text-align-center">Đang làm việc</td>
-                <td></td>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
+        <TheTable></TheTable>
       </div>
       <div class="content-footer">
         <div class="content-footer-container">
@@ -55,8 +39,28 @@
 </template>
 
 <script>
+import TheTable from "./TheTable.vue";
+import TheButton from "./base/TheButton.vue";
+
 export default {
   name: "TheContent",
+  components: {
+    TheTable,
+    TheButton,
+  },
+  methods: {
+    /**
+     * Hàm  mở dialog
+     * AUTHOR: DDDuong (09/12/2022)
+     */
+    showDialog() {
+      try {
+        document.querySelector(".dialog-container").style.display = "flex";
+      } catch (error) {
+        console.log("error");
+      }
+    },
+  },
 };
 </script>
 
@@ -64,4 +68,5 @@ export default {
 @import url(../css/layout/content_footer.css);
 @import url(../css/layout/content.css);
 @import url(../css/layout/table.css);
+@import url(../css/base/base.css);
 </style>

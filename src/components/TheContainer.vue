@@ -1,8 +1,9 @@
 <template>
   <div class="container">
-    <TheHeader :title="huy"></TheHeader>
+    <TheHeader :title="'Cán bộ, giáo viên'"></TheHeader>
     <TheSidebar></TheSidebar>
     <TheContent></TheContent>
+    <DialogAdd></DialogAdd>
   </div>
 </template>
 
@@ -10,6 +11,7 @@
 import TheHeader from "./TheHeader.vue";
 import TheSidebar from "./TheSidebar.vue";
 import TheContent from "./TheContent.vue";
+import DialogAdd from "./DialogAdd.vue";
 
 export default {
   name: "TheContainer",
@@ -17,11 +19,10 @@ export default {
     TheHeader,
     TheSidebar,
     TheContent,
+    DialogAdd,
   },
   data() {
-    return {
-      huy: "12346",
-    };
+    return {};
   },
 };
 </script>

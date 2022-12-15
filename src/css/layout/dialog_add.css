@@ -9,7 +9,7 @@
   bottom: 0;
   align-items: center;
   justify-content: center;
-  display: flex;
+  display: none;
 }
 .dialog-add {
   width: 800px;
@@ -76,6 +76,7 @@
   width: 20px;
   background-repeat: no-repeat;
   height: 20px;
+  cursor: pointer;
 }
 .dialog-name {
   margin-left: 4px;
