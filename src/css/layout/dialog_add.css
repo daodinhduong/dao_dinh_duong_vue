@@ -9,7 +9,7 @@
   bottom: 0;
   align-items: center;
   justify-content: center;
-  display: none;
+  display: flex;
 }
 .dialog-add {
   width: 800px;
@@ -111,6 +111,7 @@
   border-radius: 4px;
   background-color: #fff;
   border: 1px solid #b8b8be;
+  cursor: pointer;
 }
 #dialog-button-save {
   background-color: #03ae66;

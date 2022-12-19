@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="content-body">
-        <TheTable></TheTable>
+        <TheTable @onEdit="editOnClick"></TheTable>
       </div>
       <div class="content-footer">
         <div class="content-footer-container">
@@ -36,26 +36,63 @@
       </div>
     </div>
   </div>
+  <DialogAdd
+    :employeeId="employeeIdSelected"
+    v-if="showDetail"
+    @onClose="closeDialog"
+  ></DialogAdd>
 </template>
 
 <script>
-import TheTable from "./TheTable.vue";
-import TheButton from "./base/TheButton.vue";
-
+import TheTable from "../TheTable.vue";
+import TheButton from "../base/TheButton.vue";
+import DialogAdd from "../DialogAdd.vue";
 export default {
   name: "TheContent",
   components: {
     TheTable,
     TheButton,
+    DialogAdd,
+  },
+  data() {
+    return {
+      showDetail: false,
+      employeeIdSelected: null,
+    };
   },
   methods: {
+    /**
+     * Hàm truyền dữ liệu vào form sửa nhân viên
+     * Author DDDuong (18/12/2022)
+     */
+    editOnClick(item) {
+      try {
+        // Hiển thị Dialog
+        this.showDetail = true;
+        this.employeeIdSelected = item.EmployeeId;
+      } catch (error) {
+        console.log("error");
+      }
+    },
     /**
      * Hàm  mở dialog
      * AUTHOR: DDDuong (09/12/2022)
      */
     showDialog() {
       try {
-        document.querySelector(".dialog-container").style.display = "flex";
+        this.employeeIdSelected = null;
+        this.showDetail = true;
+      } catch (error) {
+        console.log("error");
+      }
+    },
+    /**
+     * Hàm  đóng dialog
+     * AUTHOR: DDDuong (09/12/2022)
+     */
+    closeDialog() {
+      try {
+        this.showDetail = false;
       } catch (error) {
         console.log("error");
       }
@@ -65,8 +102,8 @@ export default {
 </script>
 
 <style scoped>
-@import url(../css/layout/content_footer.css);
-@import url(../css/layout/content.css);
-@import url(../css/layout/table.css);
-@import url(../css/base/base.css);
+@import url(../../css/layout/content_footer.css);
+@import url(../../css/layout/content.css);
+@import url(../../css/layout/table.css);
+@import url(../../css/base/base.css);
 </style>

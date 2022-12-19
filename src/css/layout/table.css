@@ -34,3 +34,9 @@ td {
 .remove-icon {
   background-image: url(../../assets/Icons/ic_Remove.png);
 }
+.edit {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  cursor: pointer;
+}

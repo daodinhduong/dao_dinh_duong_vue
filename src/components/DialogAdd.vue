@@ -22,6 +22,8 @@
             </div>
             <div class="dialog-el-2">
               <input
+                ref="txtEmployeeCode"
+                v-model="newEmployees.EmployeeCode"
                 id="txtEmployeeCode"
                 class="dialog-input"
                 style="width: 100%"
@@ -37,6 +39,7 @@
             </div>
             <div class="dialog-el-0">
               <input
+                v-model="newEmployees.EmployeeName"
                 id="txtEmployeeName"
                 class="dialog-input"
                 style="width: 100%"
@@ -49,6 +52,7 @@
             <div class="dialog-el-4">Số điện thoại</div>
             <div class="dialog-el-5" style="position: relative">
               <input
+                v-model="newEmployees.TelephoneNumber"
                 class="dialog-input"
                 style="width: 100%"
                 type="text"
@@ -57,6 +61,7 @@
             </div>
             <div class="dialog-el-6 dialog-el__marrgin">Email</div>
             <input
+              v-model="newEmployees.Email"
               class="dialog-el-7 dialog-input"
               type="text"
               id="txtEmployeeEmail"
@@ -219,11 +224,12 @@
             <TheButton
               :buttonName="'Đóng'"
               class="dialog-button dialog-button-close"
-              @click="closeDialog"
+              @click="closeDialog()"
             ></TheButton>
             <button
               id="dialog-button-save"
-              class="dialog-button cursor-pointer"
+              class="dialog-button"
+              @click="btnSaveOnClick"
             >
               Lưu
             </button>
@@ -238,21 +244,125 @@
 <script>
 import ToastMessage from "./base/ToastMessage.vue";
 import TheButton from "./base/TheButton.vue";
-
+import axios from "axios";
 export default {
   name: "DialogAdd",
   components: {
     ToastMessage,
     TheButton,
   },
+  props: {
+    employeeId: {
+      type: String,
+    },
+  },
+  created() {
+    // Lấy dữ liệu từ sever
+    // Kiểm tra xem là thêm mới hay sửa Nếu thêm lấy id ngẫu nhiên từ serve, nếu sửa lấy data theo id nhân viên
+    if (this.employeeId) {
+      // Lấy data nhân viên theo id để sửa
+      axios
+        .get(`https://amis.manhnv.net/api/v1/Employees/${this.employeeId}`)
+        .then((res) => {
+          this.newEmployees = res.data;
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+    } else {
+      // Lấy mã nhân viên mới để tạo nhân viên mới
+      axios
+        .get("https://cukcuk.manhnv.net/api/v1/Employees/NewEmployeeCode")
+        .then((res) => {
+          this.newEmployees.EmployeeCode = res.data;
+          // Focus vào ô nhập liệu đàu tiên
+          //nextTick() Để khi render xong mới thực hiện lệnh focus tránh lỗi
+          this.$nextTick(function () {
+            this.$refs.txtEmployeeCode.focus();
+          });
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+    }
+  },
+  data() {
+    return {
+      newEmployees: {},
+    };
+  },
   methods: {
-    /**
-     * Hàm  đóng dialog
-     * AUTHOR: DDDuong (09/12/2022)
-     */
+    // Tham chiếu đến  hàm closeDialog bên ngoài component cha
     closeDialog() {
+      this.$emit("onClose");
+    },
+    /**
+     * Hàm lưu dữ liệu lên database
+     * Author: DDDuong (19/12/2022)
+     */
+    btnSaveOnClick() {
       try {
-        document.querySelector(".dialog-container").style.display = "none";
+        //validate dữ liệu
+        const isValid = this.validate();
+        /**
+         * Hàm gọi api lưu dữ liệu
+         * Author: DDDuong (19/12/2022)
+         */
+        if (isValid) {
+          if (!this.employeeId) {
+            axios
+              .post(
+                "https://amis.manhnv.net/api/v1/Employees",
+                this.newEmployees
+              )
+              .then((res) => {
+                console.log(res);
+                alert("them thanh cong");
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          } else {
+            axios
+              .put(
+                `https://amis.manhnv.net/api/v1/Employees/${this.employeeId}`,
+                this.newEmployees
+              )
+              .then((res) => {
+                console.log(res);
+                alert("sua thanh cong");
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    /**
+     * Hàm validate dữ liệu
+     * Author: DDDuong (19/12/2022)
+     */
+    validate() {
+      try {
+        let errorMsgs = [];
+
+        // Mã nhân viên không được phép trống
+        if (!this.newEmployees.EmployeeCode) {
+          errorMsgs.push("Số hiệu cán bộ không được phép để trống");
+        }
+        // Tên nhân viên không được phép trống
+        if (!this.newEmployees.EmployeeName) {
+          errorMsgs.push("Họ và tên không được phép để trống");
+        }
+        // Kiểm tra errorMsgs xem có lỗi không
+        if (errorMsgs.length > 0) {
+          return false;
+        } else {
+          return true;
+        }
       } catch (error) {
         console.log("error");
       }

@@ -39,5 +39,5 @@ export default {
 </script>
 
 <style scoped>
-@import url(../css/layout/sidebar.css);
+@import url(../../css/layout/sidebar.css);
 </style>

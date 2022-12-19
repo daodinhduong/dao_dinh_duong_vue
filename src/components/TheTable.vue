@@ -16,14 +16,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr v-for="(item, index) in employees" :key="index">
           <td class="text-align-center"><input type="checkbox" /></td>
-          <td class="text-align-center">|| ""}</td>
-          <td class="text-align-left">fg</td>
-          <td class="text-align-center">${em""}</td>
-          <td>tment || ""}</td>
-          <td>tment || ""}</td>
-          <td>ment || ""}</td>
+          <td class="text-align-center">{{ item.EmployeeCode }}</td>
+          <td class="text-align-left">{{ item.EmployeeName }}</td>
+          <td class="text-align-center">{{ item.TelephoneNumber }}</td>
+          <td>{{ item.DepartmentName }}</td>
+          <td>{{ item.DepartmentName }}</td>
+          <td>{{ item.DepartmentName }}</td>
           <td class="text-align-center">
             <img src="../assets/Icons/ic_Check.png" width="25" height="25" />
           </td>
@@ -31,18 +31,15 @@
             <img src="../assets/Icons/ic_Check.png" width="25" height="25" />
           </td>
           <td class="text-align-center">
-            <img
-              class="cursor-pointer"
-              src="../assets/Icons/ic_Edit.png"
-              width="25"
-              height="25"
-            />
-            <img
-              class="cursor-pointer"
-              src="../assets/Icons/ic_Remove.png"
-              width="25"
-              height="25"
-            />
+            <div class="edit">
+              <img
+                @click="editOnClick(item)"
+                src="../assets/Icons/ic_Edit.png"
+                width="25"
+                height="25"
+              />
+              <img src="../assets/Icons/ic_Remove.png" width="25" height="25" />
+            </div>
           </td>
         </tr>
       </tbody>
@@ -53,6 +50,40 @@
 <script>
 export default {
   name: "TheTable",
+  created() {
+    // Thực hiện load dữ liệu
+    this.loadData();
+  },
+  methods: {
+    // Tham chiếu đến  hàm editOnClick bên ngoài component cha
+    editOnClick(item) {
+      this.$emit("onEdit", item);
+    },
+    /**
+     * Hàm gọi API lấy dữ liệu
+     * Author DDDuong (18/12/2022)
+     */
+    loadData() {
+      try {
+        // Gọi API:
+        fetch("https://amis.manhnv.net/api/v1/Employees")
+          .then((res) => res.json())
+          .then((res) => {
+            this.employees = res;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } catch (error) {
+        console.log("error");
+      }
+    },
+  },
+  data() {
+    return {
+      employees: [],
+    };
+  },
 };
 </script>
 

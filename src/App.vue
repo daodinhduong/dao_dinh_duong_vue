@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import TheContainer from "./components/TheContainer.vue";
+import TheContainer from "./components/layout/TheContainer.vue";
 
 export default {
   name: "App",
