@@ -67,150 +67,11 @@
               id="txtEmployeeEmail"
             />
             <div class="dialog-el-8">Tổ bộ môn</div>
-            <div class="dialog-el-9">
-              <div class="dialog-el-9-select dialog-input">
-                <span class="">Tổ bộ môn</span>
-                <img
-                  src="../assets/Icons/ic_Chevron.png"
-                  width="25"
-                  height="25"
-                />
-              </div>
-              <div class="dialog-el-9-list">
-                <div class="dialog-el-9-list-item">Tổ Toán - Tin</div>
-                <div class="dialog-el-9-list-item">Tổ Lý - Hóa</div>
-                <div class="dialog-el-9-list-item">Tổ Sinh-Sử-Địa</div>
-                <div class="dialog-el-9-list-item">Tổ Anh văn</div>
-                <div class="dialog-el-9-list-item">Tổ Ngữ văn</div>
-                <div class="dialog-el-9-list-item">Tổ Văn phòng</div>
-              </div>
-            </div>
+            <ComboboxDeparment></ComboboxDeparment>
             <div class="dialog-el-10 dialog-el__marrgin">QL theo môn</div>
-            <div class="dialog-el-11">
-              <div class="dialog-el-11-select dialog-input">
-                <div value="abc" class="dialog-el-11-select-content">
-                  <span class="dialog-el-11-select-content-first"
-                    >QL theo môn</span
-                  >
-                </div>
-                <img
-                  src="../assets/Icons/ic_Chevron.png"
-                  width="25"
-                  height="25"
-                />
-              </div>
-              <div class="dialog-el-11-list">
-                <div
-                  class="dialog-el-11-list-item dialog-el-11-list-item-header"
-                >
-                  <img
-                    src="../assets/Icons/ic_Checkbox_Inactive.png"
-                    width="25"
-                    height="25"
-                  />
-                  <span class="">Tất cả</span>
-                </div>
-                <div class="dialog-el-11-list-item">
-                  <img
-                    src="../assets/Icons/ic_Checkbox_Inactive.png"
-                    width="25"
-                    height="25"
-                  />
-                  <span class="">Toán</span>
-                </div>
-                <div class="dialog-el-11-list-item">
-                  <img
-                    src="../assets/Icons/ic_Checkbox_Inactive.png"
-                    width="25"
-                    height="25"
-                  />
-                  <span class="">Lý</span>
-                </div>
-                <div class="dialog-el-11-list-item">
-                  <img
-                    src="../assets/Icons/ic_Checkbox_Inactive.png"
-                    width="25"
-                    height="25"
-                  />
-                  <span class="">Hóa</span>
-                </div>
-                <div class="dialog-el-11-list-item">
-                  <img
-                    src="../assets/Icons/ic_Checkbox_Inactive.png"
-                    width="25"
-                    height="25"
-                  />
-                  <span class="">Sinh</span>
-                </div>
-                <div class="dialog-el-11-list-item">
-                  <img
-                    src="../assets/Icons/ic_Checkbox_Inactive.png"
-                    width="25"
-                    height="25"
-                  />
-                  <span class="">Ngữ văn</span>
-                </div>
-                <div class="dialog-el-11-list-item">
-                  <img
-                    src="../assets/Icons/ic_Checkbox_Inactive.png"
-                    width="25"
-                    height="25"
-                  />
-                  <span class="">Lịch sử</span>
-                </div>
-              </div>
-            </div>
+            <ComboboxSubject></ComboboxSubject>
             <div class="dialog-el-12">QL kho, phòng</div>
-            <div class="dialog-el-13">
-              <div class="dialog-el-13-select dialog-input">
-                <div class="dialog-el-13-select-content">
-                  <span class="dialog-el-13-select-content-first"
-                    >QL theo môn</span
-                  >
-                </div>
-                <img
-                  src="../assets/Icons/ic_Chevron.png"
-                  width="25"
-                  height="25"
-                />
-              </div>
-              <div class="dialog-el-13-list">
-                <div
-                  class="dialog-el-13-list-item dialog-el-13-list-item-header"
-                >
-                  <img
-                    src="../assets/Icons/ic_Checkbox_Inactive.png"
-                    width="25"
-                    height="25"
-                  />
-                  <span class="">Tất cả</span>
-                </div>
-                <div class="dialog-el-13-list-item">
-                  <img
-                    src="../assets/Icons/ic_Checkbox_Inactive.png"
-                    width="25"
-                    height="25"
-                  />
-                  <span class="">Phòng Toán-Lý</span>
-                </div>
-                <div class="dialog-el-13-list-item">
-                  <img
-                    src="../assets/Icons/ic_Checkbox_Inactive.png"
-                    width="25"
-                    height="25"
-                  />
-                  <span class="">Phòng Hóa-Sinh</span>
-                </div>
-                <div class="dialog-el-13-list-item">
-                  <img
-                    src="../assets/Icons/ic_Checkbox_Inactive.png"
-                    width="25"
-                    height="25"
-                  />
-                  <span class="">Kho phòng chung</span>
-                </div>
-              </div>
-            </div>
+            <ComboboxManagement></ComboboxManagement>
           </div>
           <div class="dialog-right-body-checkbox">
             <input type="checkbox" />
@@ -224,7 +85,7 @@
             <TheButton
               :buttonName="'Đóng'"
               class="dialog-button dialog-button-close"
-              @click="closeDialog()"
+              @click="closeDialog"
             ></TheButton>
             <button
               id="dialog-button-save"
@@ -244,12 +105,19 @@
 <script>
 import ToastMessage from "./base/ToastMessage.vue";
 import TheButton from "./base/TheButton.vue";
+import ComboboxDeparment from "./ComboboxDeparment.vue";
+import ComboboxSubject from "./ComboboxSubject.vue";
+import ComboboxManagement from "./ComboboxManagement.vue";
+
 import axios from "axios";
 export default {
   name: "DialogAdd",
   components: {
     ToastMessage,
     TheButton,
+    ComboboxDeparment,
+    ComboboxSubject,
+    ComboboxManagement,
   },
   props: {
     employeeId: {
@@ -292,7 +160,7 @@ export default {
     };
   },
   methods: {
-    // Tham chiếu đến  hàm closeDialog bên ngoài component cha
+    // Tham chiếu đến  hàm closeDialog bên ngoài component cha, thằng con không tự hủy được chính nó
     closeDialog() {
       this.$emit("onClose");
     },
