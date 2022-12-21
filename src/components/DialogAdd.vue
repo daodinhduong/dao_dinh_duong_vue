@@ -98,7 +98,11 @@
         </div>
       </div>
     </div>
-    <ToastMessage></ToastMessage>
+    <ToastMessage
+      v-if="showToastMessage"
+      @onClose="closeToastMsg"
+      :errorMsgs="errorMsgs"
+    ></ToastMessage>
   </div>
 </template>
 
@@ -157,12 +161,27 @@ export default {
   data() {
     return {
       newEmployees: {},
+      showToastMessage: false,
+      errorMsgs: [],
     };
   },
   methods: {
     // Tham chiếu đến  hàm closeDialog bên ngoài component cha, thằng con không tự hủy được chính nó
     closeDialog() {
       this.$emit("onClose");
+    },
+    /**
+     * Hàm  đóng thông báo lỗi
+     * Author: DDDuong (19/12/2022)
+     */
+    closeToastMsg() {
+      try {
+        this.showToastMessage = false;
+        //clear thông báo lỗi
+        this.errorMsgs = [];
+      } catch (error) {
+        console.log("error");
+      }
     },
     /**
      * Hàm lưu dữ liệu lên database
@@ -177,6 +196,7 @@ export default {
          * Author: DDDuong (19/12/2022)
          */
         if (isValid) {
+          // Nếu chưa có id thì thực hiện thêm mới nhân viên
           if (!this.employeeId) {
             axios
               .post(
@@ -191,6 +211,8 @@ export default {
                 console.log(error);
               });
           } else {
+            // Nếu có id rồi thì thực hiện sửa nhân viên
+
             axios
               .put(
                 `https://amis.manhnv.net/api/v1/Employees/${this.employeeId}`,
@@ -215,18 +237,17 @@ export default {
      */
     validate() {
       try {
-        let errorMsgs = [];
-
         // Mã nhân viên không được phép trống
         if (!this.newEmployees.EmployeeCode) {
-          errorMsgs.push("Số hiệu cán bộ không được phép để trống");
+          this.errorMsgs.push("Số hiệu cán bộ không được phép để trống");
         }
         // Tên nhân viên không được phép trống
         if (!this.newEmployees.EmployeeName) {
-          errorMsgs.push("Họ và tên không được phép để trống");
+          this.errorMsgs.push("Họ và tên không được phép để trống");
         }
         // Kiểm tra errorMsgs xem có lỗi không
-        if (errorMsgs.length > 0) {
+        if (this.errorMsgs.length > 0) {
+          this.showToastMessage = true;
           return false;
         } else {
           return true;
