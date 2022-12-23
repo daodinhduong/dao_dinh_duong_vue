@@ -1,6 +1,6 @@
 <template>
   <div class="table-container">
-    <table border="1px solid #d5d8e6" id="tb-employee-list">
+    <table border="1px solid #d5d8e6" class="tbl-border" id="tb-employee-list">
       <thead>
         <tr class="table-header">
           <td class="text-align-center"><input type="checkbox" /></td>
@@ -38,7 +38,12 @@
                 width="25"
                 height="25"
               />
-              <img src="../assets/Icons/ic_Remove.png" width="25" height="25" />
+              <img
+                @click="removeOnClick(item)"
+                src="../assets/Icons/ic_Remove.png"
+                width="25"
+                height="25"
+              />
             </div>
           </td>
         </tr>
@@ -58,6 +63,10 @@ export default {
     // Tham chiếu đến  hàm editOnClick bên ngoài component cha
     editOnClick(item) {
       this.$emit("onEdit", item);
+    },
+    // Tham chiếu đến  hàm removeOnClick bên ngoài component cha
+    removeOnClick(item) {
+      this.$emit("onRemove", item);
     },
     /**
      * Hàm gọi API lấy dữ liệu
@@ -89,4 +98,7 @@ export default {
 
 <style scoped>
 @import url(../css/layout/table.css);
+/* .tbl-border {
+  border: 1px solid red;
+} */
 </style>

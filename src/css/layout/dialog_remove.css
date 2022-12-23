@@ -1,0 +1,62 @@
+.dialog-remove-container {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.dialog-remove {
+  background-color: #fff;
+  width: 406px;
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  border-radius: 4px;
+}
+.dialog-remove-header {
+  display: flex;
+  justify-content: end;
+}
+.dialog-remove-img {
+  background-image: url(../../assets/Icons/ic_X_2.png);
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  background-position: -3px -3px;
+  background-repeat: no-repeat;
+}
+.dialog-remove-content-1 {
+  font-size: 22px;
+  color: rgba(0, 0, 0, 0.7);
+}
+.dialog-remove-footer {
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+}
+.dialog-button {
+  height: 32px;
+  width: 96px;
+  font-size: 13px;
+  color: #4d4f5c;
+  border: unset;
+  border-radius: 4px;
+  background-color: #fff;
+  border: 1px solid #b8b8be;
+  cursor: pointer;
+}
+.dialog-button-save {
+  background-color: #03ae66;
+  color: #fff;
+  border: unset;
+}
+.dialog-remove-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0px 24px;
+}
