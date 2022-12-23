@@ -5,11 +5,11 @@
         <tr class="table-header">
           <td class="text-align-center"><input type="checkbox" /></td>
           <td class="text-align-center">Số hiệu cán bộ</td>
-          <td class="text-align-left">Họ và tên</td>
+          <td class="text-align-center">Họ và tên</td>
           <td class="text-align-center">Số điện thoại</td>
-          <td>Tổ chuyên môn</td>
-          <td>QL theo môn</td>
-          <td>QL kho, phòng</td>
+          <td class="text-align-center">Tổ chuyên môn</td>
+          <td class="text-align-center">QL theo môn</td>
+          <td class="text-align-center">QL kho, phòng</td>
           <td class="text-align-center">Đào tạo QLTB</td>
           <td class="text-align-center">Đang làm việc</td>
           <td></td>
