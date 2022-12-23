@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="content-body">
-        <TheTable @onEdit="editOnClick"></TheTable>
+        <TheTable @onEdit="editOnClick" @onRemove="removeOnClick"></TheTable>
       </div>
       <div class="content-footer">
         <div class="content-footer-container">
@@ -41,28 +41,58 @@
     v-if="showDetail"
     @onClose="closeDialog"
   ></DialogAdd>
+  <DialogRemove
+    v-show="showDialogRemove"
+    @onClose="closeDialogRemove"
+  ></DialogRemove>
 </template>
 
 <script>
 import TheTable from "../TheTable.vue";
 import TheButton from "../base/TheButton.vue";
 import DialogAdd from "../DialogAdd.vue";
+import DialogRemove from "../DialogRemove.vue";
+
 export default {
   name: "TheContent",
   components: {
     TheTable,
     TheButton,
     DialogAdd,
+    DialogRemove,
   },
   data() {
     return {
       showDetail: false,
       employeeIdSelected: null,
+      showDialogRemove: false,
     };
   },
   methods: {
     /**
-     * Hàm truyền dữ liệu vào form sửa nhân viên
+     *Hàm ấn vào nút xóa hiện ra dialog Remove
+     * Author: DDDuong (22/12/2022)
+     */
+    removeOnClick() {
+      try {
+        this.showDialogRemove = true;
+      } catch (error) {
+        console.log("error");
+      }
+    },
+    /**
+     *Hàm đóng Dialog Remove
+     * Author: DDDuong (22/12/2022)
+     */
+    closeDialogRemove() {
+      try {
+        this.showDialogRemove = false;
+      } catch (error) {
+        console.log("error");
+      }
+    },
+    /**
+     * Hàm truyền dữ liệu vào form sửa nhân vêin
      * Author DDDuong (18/12/2022)
      */
     editOnClick(item) {
