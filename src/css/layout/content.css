@@ -23,6 +23,10 @@
   border: none;
   width: 350px;
   height: 30px;
+  padding-left: 16px;
+}
+.content-header-input:focus {
+  outline: none;
 }
 .content-header-search-icon {
   background-image: url(../../assets/Icons/Ic_seerch.png);

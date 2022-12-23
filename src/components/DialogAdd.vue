@@ -6,13 +6,17 @@
           <div class="dialog-employee-img">
             <div class="dialog-employee-img-add">Chọn ảnh</div>
           </div>
-          <div class="dialog-employee-name">Họ và tên</div>
-          <div class="dialog-employee-code">Số hiệu cán bộ</div>
+          <div class="dialog-employee-name">
+            {{ newEmployees.EmployeeName }}
+          </div>
+          <div class="dialog-employee-code">
+            {{ newEmployees.EmployeeCode }}
+          </div>
         </div>
         <div class="dialog-line"></div>
         <div class="dialog-right">
           <div class="dialog-right-header">
-            <div class="dialog-name">Thêm hồ sơ Cán bộ, giáo viên</div>
+            <div class="dialog-name">{{ dialogTitle }}</div>
             <div class="dialog-close-button" @click="closeDialog"></div>
           </div>
           <div class="dialog-right-body">
@@ -127,6 +131,9 @@ export default {
     employeeId: {
       type: String,
     },
+    dialogTitle: {
+      type: String,
+    },
   },
   created() {
     // Lấy dữ liệu từ sever
@@ -184,6 +191,28 @@ export default {
       }
     },
     /**
+     * Hàm bật thông báo thành công khi thêm thành công
+     * Author: DDDuong (23/12/2022)
+     */
+    openToastSuccess() {
+      try {
+        this.$emit("openToast");
+      } catch (error) {
+        console.log("error");
+      }
+    },
+    /**
+     * Hàm tắt thông báo thành công
+     * Author: DDDuong (23/12/2022)
+     */
+    closeToastSuccess() {
+      try {
+        this.$emit("closeToast");
+      } catch (error) {
+        console.log("error");
+      }
+    },
+    /**
      * Hàm lưu dữ liệu lên database
      * Author: DDDuong (19/12/2022)
      */
@@ -198,6 +227,8 @@ export default {
         if (isValid) {
           // Nếu chưa có id thì thực hiện thêm mới nhân viên
           if (!this.employeeId) {
+            this.newEmployees.DepartmentId =
+              "142cb08f-7c31-21fa-8e90-67245e8b283e";
             axios
               .post(
                 "https://amis.manhnv.net/api/v1/Employees",
@@ -205,7 +236,12 @@ export default {
               )
               .then((res) => {
                 console.log(res);
-                alert("them thanh cong");
+                setTimeout(() => {
+                  document.location.reload();
+                }, 2100);
+                this.closeDialog();
+                this.openToastSuccess();
+                setTimeout(this.closeToastSuccess, 2000);
               })
               .catch((error) => {
                 console.log(error);
@@ -220,7 +256,12 @@ export default {
               )
               .then((res) => {
                 console.log(res);
-                alert("sua thanh cong");
+                setTimeout(() => {
+                  document.location.reload();
+                }, 2100);
+                this.closeDialog();
+                this.openToastSuccess();
+                setTimeout(this.closeToastSuccess, 2000);
               })
               .catch((error) => {
                 console.log(error);
@@ -245,9 +286,11 @@ export default {
         if (!this.newEmployees.EmployeeName) {
           this.errorMsgs.push("Họ và tên không được phép để trống");
         }
-        // Kiểm tra errorMsgs xem có lỗi không
+        // Kiểm tra errorMsgs xem có lỗi không thì show ra dialog thông báo lỗi
         if (this.errorMsgs.length > 0) {
           this.showToastMessage = true;
+          setTimeout(this.closeToastMsg, 3000);
+
           return false;
         } else {
           return true;

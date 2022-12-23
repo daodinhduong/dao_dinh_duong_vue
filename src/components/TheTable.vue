@@ -19,7 +19,9 @@
         <tr v-for="(item, index) in employees" :key="index">
           <td class="text-align-center"><input type="checkbox" /></td>
           <td class="text-align-center">{{ item.EmployeeCode }}</td>
-          <td class="text-align-left">{{ item.EmployeeName }}</td>
+          <td class="text-align-left">
+            <p class="detail-employee">{{ item.EmployeeName }}</p>
+          </td>
           <td class="text-align-center">{{ item.TelephoneNumber }}</td>
           <td>{{ item.DepartmentName }}</td>
           <td>{{ item.DepartmentName }}</td>

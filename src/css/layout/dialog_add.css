@@ -35,9 +35,10 @@
 .dialog-employee-img {
   width: 150px;
   height: 176px;
-  background-image: url(../../assets/Icons/img_avatar.png);
+  background-image: url(../../assets/Icons/img_ava.png);
   background-size: contain;
   display: flex;
+  background-position: 0 16px;
   flex-direction: column;
   justify-content: end;
 }
@@ -66,6 +67,7 @@
   flex-direction: column;
   justify-content: space-between;
   color: var(--dialog-text-color);
+  /* row-gap: 10px; */
 }
 .dialog-right-header {
   display: flex;
@@ -82,7 +84,6 @@
   margin-left: 4px;
 }
 .dialog-right-body {
-  margin-bottom: 16px;
   font-size: 14px;
   height: 170px;
   display: grid;
@@ -151,9 +152,7 @@
   outline: none;
   border: 1px solid var(--main-color);
 }
-/* ERROR MESSAGE */
-
-.dialog-el-right--error {
+.dialog-el__marrgin .dialog-el-right--error {
   position: absolute;
   bottom: 0;
   right: -220px;
