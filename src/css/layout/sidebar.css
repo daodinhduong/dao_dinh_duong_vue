@@ -12,10 +12,13 @@
   margin-bottom: 11px;
 }
 .menu-more {
-  background-image: url(../../assets/Icons/ic_xemchitiet.png);
-  width: 35px;
+  background-image: url(../../assets/Icons/menu_icon.png);
+  width: 30px;
   height: 30px;
+  background-size: contain;
   background-repeat: no-repeat;
+  background-position: -8px 0;
+  cursor: pointer;
 }
 .sidebar-item {
   display: flex;

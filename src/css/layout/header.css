@@ -21,9 +21,10 @@
   margin-left: 16px;
 }
 .header-info {
-  background-image: url(../../assets/Icons/ic_Help.png);
-  width: 32px;
-  height: 25px;
+  background-image: url(../../assets/Icons/question_icon.png);
+  width: 14px;
+  background-size: contain;
+  height: 14px;
   background-repeat: no-repeat;
 }
 .header-message {

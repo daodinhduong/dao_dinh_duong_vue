@@ -35,4 +35,10 @@ export default {
 </script>
 <style scoped>
 @import url(../../css/layout/toast_message.css);
+.toast-message-img {
+  background-image: url(../../assets/Icons/ic_ToastMessage_Fail.png);
+}
+.toast-message {
+  border-left: solid 8px var(--delete-color);
+}
 </style>

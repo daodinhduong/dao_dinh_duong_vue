@@ -55,10 +55,10 @@
     @OpenToast="openToastSuccess"
     @closeToast="closeToastSuccess"
   ></DialogRemove>
-  <TheSuccess
+  <TheSuccessToast
     v-show="showSuccessToast"
     :successMsgs="successToastTitle"
-  ></TheSuccess>
+  ></TheSuccessToast>
 </template>
 
 <script>
@@ -66,7 +66,7 @@ import TheTable from "../TheTable.vue";
 import TheButton from "../base/TheButton.vue";
 import DialogAdd from "../DialogAdd.vue";
 import DialogRemove from "../DialogRemove.vue";
-import TheSuccess from "../base/ToastSuccessMessage.vue";
+import TheSuccessToast from "../base/ToastSuccessMessage.vue";
 
 export default {
   name: "TheContent",
@@ -75,7 +75,7 @@ export default {
     TheButton,
     DialogAdd,
     DialogRemove,
-    TheSuccess,
+    TheSuccessToast,
   },
   data() {
     return {
