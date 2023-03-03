@@ -151,7 +151,7 @@ export default {
     } else {
       // Lấy mã nhân viên mới để tạo nhân viên mới
       axios
-        .get("https://cukcuk.manhnv.net/api/v1/Employees/NewEmployeeCode")
+        .get("https://amis.manhnv.net/api/v1/Employees/NewEmployeeCode")
         .then((res) => {
           this.newEmployees.EmployeeCode = res.data;
           // Focus vào ô nhập liệu đàu tiên
