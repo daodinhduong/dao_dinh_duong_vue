@@ -74,8 +74,8 @@
             <ComboboxDeparment></ComboboxDeparment>
             <div class="dialog-el-10 dialog-el__marrgin">QL theo môn</div>
             <ComboboxSubject></ComboboxSubject>
-            <div class="dialog-el-12">QL kho, phòng</div>
-            <ComboboxManagement></ComboboxManagement>
+            <div>QL kho, phòng</div>
+            <ComboboxManagement class="dialog-el-12"></ComboboxManagement>
           </div>
           <div class="dialog-right-body-checkbox">
             <input type="checkbox" />
