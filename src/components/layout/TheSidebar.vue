@@ -8,18 +8,18 @@
       <div class="menu-more"></div>
     </div>
     <div class="sidebar-container">
-      <div class="sidebar-item">
+      <router-link to="/tongquan" class="sidebar-item">
         <div class="sidebar-img img2"></div>
-        <div class="sidebar-title">Tổng quan</div>
-      </div>
-      <div class="sidebar-item">
+        <div class="sidebar-title">Tổng quan</div></router-link
+      >
+      <router-link to="/thietbi" class="sidebar-item">
         <div class="sidebar-img img3"></div>
         <div class="sidebar-title">Thiết bị</div>
-      </div>
-      <div class="sidebar-item">
+      </router-link>
+      <router-link to="/muontra" class="sidebar-item">
         <div class="sidebar-img img4"></div>
         <div class="sidebar-title">Mượn trả</div>
-      </div>
+      </router-link>
       <div class="sidebar-item">
         <div class="sidebar-img img5"></div>
         <div class="sidebar-title">Báo cáo</div>
@@ -40,4 +40,13 @@ export default {
 
 <style scoped>
 @import url(../../css/layout/sidebar.css);
+a {
+  color: #fff;
+  text-decoration: none;
+}
+a.router-link-active {
+  color: #0dd469;
+  border-left: 3px solid #0dd469;
+  background-color: rgba(229, 243, 255, 0.5);
+}
 </style>

@@ -1,67 +1,28 @@
 <template>
-  <div class="dialog-el-13">
-    <div @click="managementOnClick" class="dialog-el-13-select dialog-input">
-      <div class="dialog-el-13-select-content">
-        <span class="dialog-el-13-select-content-first">QL theo môn</span>
-      </div>
-      <img src="../assets/Icons/ic_Chevron.png" width="25" height="25" />
-    </div>
-    <div v-if="showManagement" class="dialog-el-13-list">
-      <div class="dialog-el-13-list-item dialog-el-13-list-item-header">
-        <img
-          src="../assets/Icons/ic_Checkbox_Inactive.png"
-          width="25"
-          height="25"
-        />
-        <span class="">Tất cả</span>
-      </div>
-      <div class="dialog-el-13-list-item">
-        <img
-          src="../assets/Icons/ic_Checkbox_Inactive.png"
-          width="25"
-          height="25"
-        />
-        <span class="">Phòng Toán-Lý</span>
-      </div>
-      <div class="dialog-el-13-list-item">
-        <img
-          src="../assets/Icons/ic_Checkbox_Inactive.png"
-          width="25"
-          height="25"
-        />
-        <span class="">Phòng Hóa-Sinh</span>
-      </div>
-      <div class="dialog-el-13-list-item">
-        <img
-          src="../assets/Icons/ic_Checkbox_Inactive.png"
-          width="25"
-          height="25"
-        />
-        <span class="">Kho phòng chung</span>
-      </div>
-    </div>
-  </div>
+  <v-select
+    :searchable="false"
+    class="style-chooser"
+    placeholder="QL kho, phòng"
+    v-model="idSelected"
+    label="management"
+    multiple
+    :options="managements"
+    :reduce="(idManagement) => idManagement.id"
+  ></v-select>
 </template>
 <script>
+import "vue-select/dist/vue-select.css";
+
 export default {
   name: "ComboboxManagement",
   data() {
     return {
-      showManagement: false,
+      managements: [
+        { id: 1, management: "Toán - Lý" },
+        { id: 2, management: "Hóa - Sinh" },
+        { id: 3, management: "phòng chung" },
+      ],
     };
-  },
-  methods: {
-    /**
-     * Hàm đóng mở combobox management
-     * Author: DDDuong (19/12/2022)
-     */
-    managementOnClick() {
-      try {
-        this.showManagement = !this.showManagement;
-      } catch (error) {
-        console.log(error);
-      }
-    },
   },
 };
 </script>

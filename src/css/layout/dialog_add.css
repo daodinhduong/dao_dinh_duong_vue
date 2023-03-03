@@ -201,3 +201,7 @@
 .dialog-el-2-error {
   display: none;
 }
+.dialog-el-12 {
+  grid-column-start: 2;
+  grid-column-end: 5;
+}
