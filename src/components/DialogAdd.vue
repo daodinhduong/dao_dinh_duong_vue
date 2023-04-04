@@ -7,10 +7,10 @@
             <div class="dialog-employee-img-add">Chọn ảnh</div>
           </div>
           <div class="dialog-employee-name">
-            {{ newEmployees.EmployeeName }}
+            {{ newEmployees.name }}
           </div>
           <div class="dialog-employee-code">
-            {{ newEmployees.EmployeeCode }}
+            {{ newEmployees.teacherID }}
           </div>
         </div>
         <div class="dialog-line"></div>
@@ -27,7 +27,7 @@
             <div class="dialog-el-2">
               <input
                 ref="txtEmployeeCode"
-                v-model="newEmployees.EmployeeCode"
+                v-model="newEmployees.teacherID"
                 id="txtEmployeeCode"
                 class="dialog-input"
                 style="width: 100%"
@@ -43,7 +43,7 @@
             </div>
             <div class="dialog-el-0">
               <input
-                v-model="newEmployees.EmployeeName"
+                v-model="newEmployees.name"
                 id="txtEmployeeName"
                 class="dialog-input"
                 style="width: 100%"
@@ -56,7 +56,7 @@
             <div class="dialog-el-4">Số điện thoại</div>
             <div class="dialog-el-5" style="position: relative">
               <input
-                v-model="newEmployees.TelephoneNumber"
+                v-model="newEmployees.phone"
                 class="dialog-input"
                 style="width: 100%"
                 type="text"
@@ -65,23 +65,30 @@
             </div>
             <div class="dialog-el-6 dialog-el__marrgin">Email</div>
             <input
-              v-model="newEmployees.Email"
+              v-model="newEmployees.email"
               class="dialog-el-7 dialog-input"
               type="text"
               id="txtEmployeeEmail"
             />
             <div class="dialog-el-8">Tổ bộ môn</div>
-            <ComboboxDeparment></ComboboxDeparment>
+            <ComboboxDeparment
+              @selectDeparment="getDataFromDeparment"
+            ></ComboboxDeparment>
             <div class="dialog-el-10 dialog-el__marrgin">QL theo môn</div>
-            <ComboboxSubject></ComboboxSubject>
+            <ComboboxSubject
+              @selectSubject="getDataFromSubject"
+            ></ComboboxSubject>
             <div>QL kho, phòng</div>
-            <ComboboxManagement class="dialog-el-12"></ComboboxManagement>
+            <ComboboxManagement
+              @selectManagement="getDataFromManage"
+              class="dialog-el-12"
+            ></ComboboxManagement>
           </div>
           <div class="dialog-right-body-checkbox">
-            <input type="checkbox" />
+            <input type="checkbox" ref="QLTB" />
             <div class="checkbox-1-content">Trình độ nghiệp vụ QLTB</div>
             <div class="dialog-right-body-checkbox-right">
-              <input type="checkbox" />
+              <input type="checkbox" ref="working" />
               <div class="check-box-2-content">Đang làm việc</div>
             </div>
           </div>
@@ -141,27 +148,13 @@ export default {
     if (this.employeeId) {
       // Lấy data nhân viên theo id để sửa
       axios
-        .get(`https://amis.manhnv.net/api/v1/Employees/${this.employeeId}`)
+        .get(`http://127.0.0.1:3000/api/v1/teachers/${this.employeeId}`)
         .then((res) => {
-          this.newEmployees = res.data;
-        })
-        .catch((res) => {
           console.log(res);
-        });
-    } else {
-      // Lấy mã nhân viên mới để tạo nhân viên mới
-      axios
-        .get("https://amis.manhnv.net/api/v1/Employees/NewEmployeeCode")
-        .then((res) => {
-          this.newEmployees.EmployeeCode = res.data;
-          // Focus vào ô nhập liệu đàu tiên
-          //nextTick() Để khi render xong mới thực hiện lệnh focus tránh lỗi
-          this.$nextTick(function () {
-            this.$refs.txtEmployeeCode.focus();
-          });
+          this.newEmployees = res.data.data.teacher;
         })
-        .catch((res) => {
-          console.log(res);
+        .catch((err) => {
+          console.log(err);
         });
     }
   },
@@ -173,6 +166,26 @@ export default {
     };
   },
   methods: {
+    //Hàm lấy dữ liệu từ các combobox
+    getDataFromDeparment(deparmentName) {
+      this.newEmployees.deparment = deparmentName;
+      console.log(this.newEmployees);
+    },
+    getDataFromSubject(subjectName) {
+      this.newEmployees.subjects = subjectName;
+    },
+    getDataFromManage(manageName) {
+      this.newEmployees.roomManage = manageName;
+    },
+    //Hàm lấy dữ liệu từ checkbox
+    getDataFromCheckBox() {
+      if (this.$refs.QLTB.checked) {
+        this.newEmployees.isTraining = true;
+      }
+      if (this.$refs.working.checked) {
+        this.newEmployees.isWorking = true;
+      }
+    },
     // Tham chiếu đến  hàm closeDialog bên ngoài component cha, thằng con không tự hủy được chính nó
     closeDialog() {
       this.$emit("onClose");
@@ -219,6 +232,7 @@ export default {
     btnSaveOnClick() {
       try {
         //validate dữ liệu
+        this.getDataFromCheckBox();
         const isValid = this.validate();
         /**
          * Hàm gọi api lưu dữ liệu
@@ -227,21 +241,16 @@ export default {
         if (isValid) {
           // Nếu chưa có id thì thực hiện thêm mới nhân viên
           if (!this.employeeId) {
-            this.newEmployees.DepartmentId =
-              "142cb08f-7c31-21fa-8e90-67245e8b283e";
             axios
-              .post(
-                "https://amis.manhnv.net/api/v1/Employees",
-                this.newEmployees
-              )
+              .post("http://127.0.0.1:3000/api/v1/teachers", this.newEmployees)
               .then((res) => {
                 console.log(res);
                 setTimeout(() => {
                   document.location.reload();
-                }, 2100);
+                }, 500);
                 this.closeDialog();
                 this.openToastSuccess();
-                setTimeout(this.closeToastSuccess, 2000);
+                setTimeout(this.closeToastSuccess, 500);
               })
               .catch((error) => {
                 console.log(error);
@@ -250,8 +259,8 @@ export default {
             // Nếu có id rồi thì thực hiện sửa nhân viên
 
             axios
-              .put(
-                `https://amis.manhnv.net/api/v1/Employees/${this.employeeId}`,
+              .patch(
+                `http://127.0.0.1:3000/api/v1/teachers/${this.employeeId}`,
                 this.newEmployees
               )
               .then((res) => {
@@ -279,11 +288,11 @@ export default {
     validate() {
       try {
         // Mã nhân viên không được phép trống
-        if (!this.newEmployees.EmployeeCode) {
+        if (!this.newEmployees.teacherID) {
           this.errorMsgs.push("Số hiệu cán bộ không được phép để trống");
         }
         // Tên nhân viên không được phép trống
-        if (!this.newEmployees.EmployeeName) {
+        if (!this.newEmployees.name) {
           this.errorMsgs.push("Họ và tên không được phép để trống");
         }
         // Kiểm tra errorMsgs xem có lỗi không thì show ra dialog thông báo lỗi

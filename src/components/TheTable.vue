@@ -18,19 +18,29 @@
       <tbody>
         <tr v-for="(item, index) in employees" :key="index">
           <td class="text-align-center"><input type="checkbox" /></td>
-          <td class="text-align-center">{{ item.EmployeeCode }}</td>
+          <td class="text-align-center">{{ item.teacherID }}</td>
           <td class="text-align-left">
-            <p class="detail-employee">{{ item.EmployeeName }}</p>
+            <p class="detail-employee">{{ item.name }}</p>
           </td>
-          <td class="text-align-center">{{ item.TelephoneNumber }}</td>
-          <td>{{ item.DepartmentName }}</td>
-          <td>{{ item.DepartmentName }}</td>
-          <td>{{ item.DepartmentName }}</td>
+          <td class="text-align-center">{{ item.phone }}</td>
+          <td>{{ item.deparment }}</td>
+          <td>{{ item.subjects }}</td>
+          <td>{{ item.roomManage }}</td>
           <td class="text-align-center">
-            <img src="../assets/Icons/ic_Check.png" width="25" height="25" />
+            <img
+              v-if="item.isTraining"
+              src="../assets/Icons/ic_Check.png"
+              width="25"
+              height="25"
+            />
           </td>
           <td class="text-align-center">
-            <img src="../assets/Icons/ic_Check.png" width="25" height="25" />
+            <img
+              v-if="item.isWorking"
+              src="../assets/Icons/ic_Check.png"
+              width="25"
+              height="25"
+            />
           </td>
           <td class="text-align-center">
             <div class="edit">
@@ -77,16 +87,17 @@ export default {
     loadData() {
       try {
         // Gọi API:
-        fetch("https://amis.manhnv.net/api/v1/Employees")
+        fetch("http://127.0.0.1:3000/api/v1/teachers")
           .then((res) => res.json())
           .then((res) => {
-            this.employees = res;
+            console.log(res);
+            this.employees = res.data.teachers;
           })
           .catch((error) => {
             console.log(error);
           });
       } catch (error) {
-        console.log("error");
+        console.log(error);
       }
     },
   },

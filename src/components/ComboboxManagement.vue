@@ -3,11 +3,10 @@
     :searchable="false"
     class="style-chooser"
     placeholder="QL kho, phòng"
-    v-model="idSelected"
+    v-model="managementSelected"
     label="management"
-    multiple
     :options="managements"
-    :reduce="(idManagement) => idManagement.id"
+    :reduce="(idManagement) => idManagement.management"
   ></v-select>
 </template>
 <script>
@@ -15,8 +14,14 @@ import "vue-select/dist/vue-select.css";
 
 export default {
   name: "ComboboxManagement",
+  watch: {
+    managementSelected() {
+      this.$emit("selectManagement", this.managementSelected);
+    },
+  },
   data() {
     return {
+      managementSelected: null,
       managements: [
         { id: 1, management: "Toán - Lý" },
         { id: 2, management: "Hóa - Sinh" },

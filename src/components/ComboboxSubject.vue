@@ -2,11 +2,10 @@
   <v-select
     class="style-chooser"
     placeholder="QL theo môn"
-    v-model="idSelected"
+    v-model="subjectSelected"
     label="subject"
-    multiple
     :options="subjects"
-    :reduce="(idNhanVien) => idNhanVien.id"
+    :reduce="(idNhanVien) => idNhanVien.subject"
     :searchable="false"
   ></v-select>
 </template>
@@ -14,6 +13,11 @@
 import "vue-select/dist/vue-select.css";
 export default {
   name: "ComboboxSubject",
+  watch: {
+    subjectSelected() {
+      this.$emit("selectSubject", this.subjectSelected);
+    },
+  },
   data() {
     return {
       subjects: [
@@ -25,7 +29,7 @@ export default {
         { id: 6, subject: "Ngữ văn" },
         { id: 7, subject: "Lịch sử" },
       ],
-      idSelected: [],
+      subjectSelected: null,
     };
   },
 };

@@ -3,10 +3,10 @@
     :clearable="false"
     class="style-chooser"
     placeholder="Tổ bộ môn"
-    v-model="idSelected"
+    v-model="deparmentSelected"
     label="department"
     :options="departments"
-    :reduce="(idDeparment) => idDeparment.id"
+    :reduce="(idDeparment) => idDeparment.department"
   ></v-select>
 </template>
 <script>
@@ -14,8 +14,14 @@ import "vue-select/dist/vue-select.css";
 
 export default {
   name: "ComboboxDeparment",
+  watch: {
+    deparmentSelected() {
+      this.$emit("selectDeparment", this.deparmentSelected);
+    },
+  },
   data() {
     return {
+      deparmentSelected: null,
       departments: [
         { id: 1, department: "Toán - Lý" },
         { id: 2, department: "Hóa - Sinh" },
@@ -23,6 +29,7 @@ export default {
       ],
     };
   },
+  method: {},
 };
 </script>
 <style scoped>

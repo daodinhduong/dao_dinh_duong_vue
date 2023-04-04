@@ -82,14 +82,14 @@ export default {
       try {
         axios
           .delete(
-            `https://amis.manhnv.net/api/v1/Employees/${this.employeeId}`,
+            `http://127.0.0.1:3000/api/v1/teachers/${this.employeeId}`,
             this.newEmployees
           )
           .then((res) => {
             console.log(res);
             setTimeout(() => {
               document.location.reload();
-            }, 2100);
+            }, 500);
             this.closeDialogRemove();
             this.openToastSuccess();
             setTimeout(this.closeToastSuccess, 2000);
@@ -98,7 +98,7 @@ export default {
             console.log(error);
           });
       } catch (error) {
-        console.log("error");
+        console.log(error);
       }
     },
   },

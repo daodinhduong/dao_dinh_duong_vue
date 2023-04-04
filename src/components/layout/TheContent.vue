@@ -98,7 +98,7 @@ export default {
         this.successToastTitle = "Xóa cán bộ giáo viên thành công";
         //Hiển thị dialog xóa
         this.showDialogRemove = true;
-        this.employeeIdSelected = item.EmployeeId;
+        this.employeeIdSelected = item._id;
       } catch (error) {
         console.log("error");
       }
@@ -124,7 +124,7 @@ export default {
         this.successToastTitle = "Sửa cán bộ giáo viên thành công";
         // Hiển thị Dialog
         this.showDetail = true;
-        this.employeeIdSelected = item.EmployeeId;
+        this.employeeIdSelected = item._id;
         // Thay đổi title của dialog
         this.dialogTitle = "Sửa hồ sơ Cán bộ, giáo viên";
       } catch (error) {
